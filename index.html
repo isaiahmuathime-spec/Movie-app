@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StreamVault</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"></head>
+<body>
+
+<nav>
+  <div class="logo">StreamVault</div>
+  <div class="nav-links">
+    <a class="active">Home</a>
+    <a>Movies</a>
+    <a>Series</a>
+    <a>My List</a>
+  </div>
+  <div class="nav-right">
+    <div class="search-bar">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input type="text" id="searchInput" placeholder="Search movies...">
+    </div>
+  </div>
+</nav>
+
+<div class="hero" id="hero">
+  <button class="slide-arrow left" onclick="changeSlide(-1)">&#8249;</button>
+  <button class="slide-arrow right" onclick="changeSlide(1)">&#8250;</button>
+  <div class="slide-dots" id="slideDots"></div>
+</div>
+
+<main>
+  <div style="margin-top:2rem; margin-bottom:2rem;">
+    <div class="genre-row" id="genreRow">
+      <div class="genre-pill active" data-genre="All">All</div>
+      <div class="genre-pill" data-genre="28">Action</div>
+      <div class="genre-pill" data-genre="18">Drama</div>
+      <div class="genre-pill" data-genre="35">Comedy</div>
+      <div class="genre-pill" data-genre="53">Thriller</div>
+      <div class="genre-pill" data-genre="878">Sci-Fi</div>
+      <div class="genre-pill" data-genre="27">Horror</div>
+      <div class="genre-pill" data-genre="16">Animation</div>
+      <div class="genre-pill" data-genre="10749">Romance</div>
+    </div>
+  </div>
+
+  <div class="featured-banner">
+    <div class="featured-text">
+      <h2>🎬 NEW RELEASES THIS WEEK</h2>
+      <p>Fresh titles added daily — your next obsession is waiting.</p>
+    </div>
+    <button class="featured-btn">Explore Now</button>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">🔥 Trending Now</div>
+      <a class="see-all">See all</a>
+    </div>
+    <div class="card-row" id="trendingRow"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">🎥 Popular Movies</div>
+      <a class="see-all">See all</a>
+    </div>
+    <div class="card-row" id="popularRow"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">⭐ Top Rated</div>
+      <a class="see-all">See all</a>
+    </div>
+    <div class="card-row" id="topRatedRow"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">💥 Action & Adventure</div>
+      <a class="see-all">See all</a>
+    </div>
+    <div class="card-row" id="actionRow"></div>
+  </div>
+</main>
+
+<footer>
+  <span>© 2025 StreamVault. Personal Use Only.</span>
+  <span>Powered by <a style="color:var(--purple-light);text-decoration:none;" href="https://www.themoviedb.org/" target="_blank">TMDB API</a></span>
+</footer>
+
+<div class="toast" id="toast"></div>
+</body>
+</html>
