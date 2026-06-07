@@ -2,6 +2,7 @@
 const API_KEY = typeof CONFIG !== 'undefined' && CONFIG.API_KEY ? CONFIG.API_KEY : '0cc93d3aba79b006f4354a3502680929';
 const IMG_BASE = 'https://image.tmdb.org/t/p/w500';
 const IMG_BACKDROP = 'https://image.tmdb.org/t/p/original';
+const YOUTUBE_EMBED = 'https://www.youtube.com/embed/';
 let currentSlide = 0;
 let slideInterval;
 
@@ -28,6 +29,7 @@ function renderCard(movie) {
         <div class="card-info">
           <div class="card-title">${movie.title}</div>
           <div class="card-sub"><span>${year}</span><span class="card-rating">★ ${rating}</span></div>
+          <button class="card-trailer-btn" type="button" onclick="openTrailer(${movie.id})">Watch Trailer</button>
         </div>`;
   } else {
     div.innerHTML = `
@@ -38,9 +40,45 @@ function renderCard(movie) {
         <div class="card-info">
           <div class="card-title">${movie.title}</div>
           <div class="card-sub"><span>${year}</span><span class="card-rating">★ ${rating}</span></div>
+          <button class="card-trailer-btn" type="button" onclick="openTrailer(${movie.id})">Watch Trailer</button>
         </div>`;
   }
   return div;
+}
+
+async function fetchTrailer(movieId) {
+  const data = await tmdb(`/movie/${movieId}/videos`);
+  if (!data || !data.results) return null;
+  return data.results.find(v => v.type === 'Trailer' && v.site === 'YouTube')
+    || data.results.find(v => v.site === 'YouTube')
+    || null;
+}
+
+function showTrailer(video) {
+  const overlay = document.getElementById('modalOverlay');
+  const container = document.getElementById('videoContainer');
+  container.innerHTML = `<iframe src="${YOUTUBE_EMBED}${video.key}?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+  overlay.classList.add('show');
+}
+
+function closeTrailerModal() {
+  const overlay = document.getElementById('modalOverlay');
+  const container = document.getElementById('videoContainer');
+  overlay.classList.remove('show');
+  container.innerHTML = '';
+}
+
+async function openTrailer(movieId) {
+  const trailer = await fetchTrailer(movieId);
+  if (!trailer) {
+    showToast('Trailer not available for this movie.');
+    return;
+  }
+  showTrailer(trailer);
+}
+
+function openMovieInfo(movieId) {
+  window.open(`https://www.themoviedb.org/movie/${movieId}`, '_blank');
 }
 
 function populateRow(rowId, movies) {
@@ -71,8 +109,8 @@ function buildHeroSlide(movie, idx) {
         </div>
         <div class="slide-desc">${movie.overview || ''}</div>
         <div class="slide-btns">
-          <button class="btn-play">▶ Play Now</button>
-          <button class="btn-info">ℹ More Info</button>
+          <button class="btn-play" onclick="openTrailer(${movie.id})">▶ Watch Trailer</button>
+          <button class="btn-info" onclick="openMovieInfo(${movie.id})">ℹ More Info</button>
         </div>
       </div>`;
   return slide;
@@ -163,6 +201,12 @@ document.getElementById('searchInput').addEventListener('input', function () {
     const data = await tmdb('/search/movie', `query=${encodeURIComponent(q)}`);
     if (data) populateRow('trendingRow', data.results.slice(0, 12));
   }, 500);
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && document.getElementById('modalOverlay').classList.contains('show')) {
+    closeTrailerModal();
+  }
 });
 
 let toastTimer;

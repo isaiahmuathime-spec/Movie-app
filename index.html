@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StreamVault</title>
+<title>NetStream</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <nav>
-  <div class="logo">StreamVault</div>
+  <div class="logo">NetStream</div>
   <div class="nav-links">
     <a class="active">Home</a>
     <a>Movies</a>
@@ -90,11 +90,17 @@
 </main>
 
 <footer>
-  <span>© 2025 StreamVault. Personal Use Only.</span>
+  <span>© 2025 NetStream. Personal Use Only.</span>
   <span>Powered by <a style="color:var(--purple-light);text-decoration:none;" href="https://www.themoviedb.org/" target="_blank">TMDB API</a></span>
 </footer>
 
 <div class="toast" id="toast"></div>
+<div class="modal-overlay" id="modalOverlay" onclick="closeTrailerModal()">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <button class="modal-close" id="modalClose" type="button" onclick="closeTrailerModal()">×</button>
+    <div class="video-container" id="videoContainer"></div>
+  </div>
+</div>
 <script src="config.js" defer></script>
 <script src="script.js" defer></script>
 </body>

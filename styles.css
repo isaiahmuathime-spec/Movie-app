@@ -238,6 +238,23 @@
     display:flex; justify-content:space-between;
   }
   .card-rating { color: #f5c518; font-weight:700; }
+  .card-trailer-btn {
+    margin-top: 10px;
+    width: 100%;
+    border: none;
+    background: var(--purple);
+    color: #fff;
+    padding: 8px 10px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .card-trailer-btn:hover {
+    background: var(--purple-light);
+    transform: translateY(-1px);
+  }
 
   .genre-row { display:flex; flex-wrap:wrap; gap:10px; margin-bottom: 2rem; }
   .genre-pill {
@@ -281,6 +298,42 @@
     border-top: 1px solid var(--border);
     padding: 2rem 4vw; color: var(--text-muted); font-size: 0.78rem;
     display:flex; justify-content:space-between; align-items:center;
+  }
+
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
+    z-index: 400;
+  }
+  .modal-overlay.show {
+    opacity: 1; pointer-events: auto;
+  }
+  .modal-content {
+    width: min(90vw, 960px);
+    max-height: 90vh;
+    background: rgba(15, 15, 25, 0.98);
+    border: 1px solid rgba(124, 58, 237, 0.3);
+    border-radius: 18px;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    position: relative;
+  }
+  .modal-close {
+    position: absolute; top: 12px; right: 14px;
+    border: none; background: rgba(255,255,255,0.08);
+    color: #fff; font-size: 1.5rem; line-height: 1;
+    width: 40px; height: 40px; border-radius: 50%;
+    cursor: pointer; z-index: 2;
+  }
+  .video-container {
+    width: 100%; aspect-ratio: 16 / 9;
+    background: #000;
+  }
+  .video-container iframe {
+    width: 100%; height: 100%;
+    border: none;
   }
 
   .toast {
