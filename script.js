@@ -1,5 +1,5 @@
 
-const API_KEY = 'df65145524e22982405c8915b431b598c';
+const API_KEY = typeof CONFIG !== 'undefined' && CONFIG.API_KEY ? CONFIG.API_KEY : '0cc93d3aba79b006f4354a3502680929';
 const IMG_BASE = 'https://image.tmdb.org/t/p/w500';
 const IMG_BACKDROP = 'https://image.tmdb.org/t/p/original';
 let currentSlide = 0;
